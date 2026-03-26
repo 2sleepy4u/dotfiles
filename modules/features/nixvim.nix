@@ -180,6 +180,10 @@
 				lualine.enable = true;
 				oil.enable = true;
 				telescope.enable = true;
+				telescope.dependencies = {
+				    plenary-nvim.enable = true;
+
+				};
 				telescope.extensions.ui-select.enable = true;
 				treesitter.enable = true;
 				treesitter.settings.auto_install = true;
@@ -191,21 +195,13 @@
 #rust-tools.enable = true;
 				cmp_luasnip.enable = true;
 				luasnip.enable = true;
-				obsidian = {
-					enable = true;
-					settings.legacy_commands = false;
-					settings.workspaces = [
-					{
-						name = "documents";
-						path = "~/doc";
-					}
-					];
-				};
+				
 			};
 			extraPlugins = with pkgs.vimPlugins; [
 				nvim-dap
 					actions-preview-nvim
 					hologram-nvim
+					plenary-nvim
 					(pkgs.vimUtils.buildVimPlugin {
 					 name = "marp";
 					 src = pkgs.fetchFromGitHub {

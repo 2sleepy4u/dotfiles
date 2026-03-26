@@ -41,9 +41,12 @@
 
 					binds = {
 						"Mod+Return".spawn-sh = lib.getExe pkgs.alacritty;
+						"Mod+S".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher clipboard";
+
+
 						"Mod+Space".spawn-sh = lib.getExe pkgs.fuzzel;
 						"Mod+Q".close-window = null;
-						"Mod+S".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
+						# "Mod+S".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
 
 # Audio
 						"XF86AudioRaiseVolume" = { _attrs.allow-when-locked = true; spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; };

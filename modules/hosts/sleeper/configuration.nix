@@ -5,6 +5,7 @@
 			self.nixosModules.sleeperHardware
 			self.nixosModules.niri
 			self.nixosModules.zsh
+			self.nixosModules.gaming
 			inputs.catppuccin.nixosModules.catppuccin
 			];
 
@@ -50,7 +51,6 @@
 			description = "2sleepy";
 			extraGroups = [ "networkmanager" "wheel" ];
 			packages = with pkgs; [
-				git 
 			];
 		};
 
@@ -70,10 +70,6 @@
 
 		nixpkgs.config.allowUnfree = true;
 
-
-		#nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-		#nixpkgs.config.brave.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-
 		environment.systemPackages = with pkgs; [
   			vim 
 			vulkan-tools
@@ -86,6 +82,7 @@
 		];
 
 		 services.openssh.enable = true;
+		 services.printing.enable = true;
 
 # Open ports in the firewall.
 # networking.firewall.allowedTCPPorts = [ ... ];

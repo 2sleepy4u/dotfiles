@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-	flake.homeModules.tmux = { pkgs, lib, ... }: {
+	flake.homeModules.fuzzel = { pkgs, lib, ... }: {
 		programs.fuzzel = {
 			enable = true;
 		};

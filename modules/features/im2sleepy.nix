@@ -10,6 +10,11 @@
 	  imv
 	  wl-clipboard
 	  thunar
+	  qalculate-gtk
+	  direnv
+	  git
+      jdk21
+	  ripgrep
 
       (discord.override {
         commandLineArgs = [
@@ -28,6 +33,9 @@
 	  self.homeModules.tmux
 	  self.homeModules.starship
 	  self.homeModules.zsh
+	  self.homeModules.fuzzel
+	    self.homeModules.mpv      # add this
+
     ];
   };
 }

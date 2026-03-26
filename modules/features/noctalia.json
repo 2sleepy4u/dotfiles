@@ -3,9 +3,9 @@
     "settingsVersion": 57,
     "bar": {
       "barType": "simple",
-      "position": "top",
+      "position": "right",
       "monitors": [],
-      "density": "default",
+      "density": "compact",
       "showOutline": false,
       "showCapsule": true,
       "capsuleOpacity": 1,
@@ -30,15 +30,6 @@
       "widgets": {
         "left": [
           {
-            "colorizeSystemIcon": "none",
-            "customIconPath": "",
-            "enableColorization": false,
-            "icon": "rocket",
-            "iconColor": "none",
-            "id": "Launcher",
-            "useDistroLogo": false
-          },
-          {
             "clockColor": "none",
             "customFont": "",
             "formatHorizontal": "HH:mm ddd, MMM dd",
@@ -46,28 +37,6 @@
             "id": "Clock",
             "tooltipFormat": "HH:mm ddd, MMM dd",
             "useCustomFont": false
-          },
-          {
-            "compactMode": true,
-            "diskPath": "/",
-            "iconColor": "none",
-            "id": "SystemMonitor",
-            "showCpuCores": false,
-            "showCpuFreq": false,
-            "showCpuTemp": true,
-            "showCpuUsage": true,
-            "showDiskAvailable": false,
-            "showDiskUsage": false,
-            "showDiskUsageAsPercent": false,
-            "showGpuTemp": false,
-            "showLoadAverage": false,
-            "showMemoryAsPercent": false,
-            "showMemoryUsage": true,
-            "showNetworkStats": false,
-            "showSwapUsage": false,
-            "textColor": "none",
-            "useMonospaceFont": true,
-            "usePadding": false
           },
           {
             "colorizeIcons": false,
@@ -94,6 +63,25 @@
             "textColor": "none",
             "useFixedWidth": false,
             "visualizerType": "linear"
+          },
+          {
+            "colorName": "primary",
+            "hideWhenIdle": false,
+            "id": "AudioVisualizer",
+            "width": 200
+          },
+          {
+            "colorizeIcons": false,
+            "hideMode": "hidden",
+            "iconScale": 0.8,
+            "id": "Taskbar",
+            "maxTaskbarWidth": 40,
+            "onlyActiveWorkspaces": true,
+            "onlySameOutput": true,
+            "showPinnedApps": true,
+            "showTitle": false,
+            "smartWidth": true,
+            "titleWidth": 120
           }
         ],
         "center": [
@@ -117,6 +105,15 @@
             "showBadge": true,
             "showLabelsOnlyWhenOccupied": true,
             "unfocusedIconsOpacity": 1
+          },
+          {
+            "colorizeSystemIcon": "none",
+            "customIconPath": "",
+            "enableColorization": false,
+            "icon": "rocket",
+            "iconColor": "none",
+            "id": "Launcher",
+            "useDistroLogo": false
           }
         ],
         "right": [
@@ -128,6 +125,10 @@
             "hidePassive": false,
             "id": "Tray",
             "pinned": []
+          },
+          {
+            "iconColor": "none",
+            "id": "Settings"
           },
           {
             "hideWhenZero": false,
@@ -161,6 +162,12 @@
             "textColor": "none"
           },
           {
+            "displayMode": "onhover",
+            "iconColor": "none",
+            "id": "Bluetooth",
+            "textColor": "none"
+          },
+          {
             "colorizeDistroLogo": false,
             "colorizeSystemIcon": "none",
             "customIconPath": "",
@@ -168,6 +175,9 @@
             "icon": "noctalia",
             "id": "ControlCenter",
             "useDistroLogo": false
+          },
+          {
+            "id": "plugin:clipper"
           }
         ]
       },
@@ -313,11 +323,11 @@
       "hideWallpaperFilenames": false,
       "overviewBlur": 0.4,
       "overviewTint": 0.6,
-      "useWallhaven": false,
-      "wallhavenQuery": "",
+      "useWallhaven": true,
+      "wallhavenQuery": "evangelion",
       "wallhavenSorting": "relevance",
       "wallhavenOrder": "desc",
-      "wallhavenCategories": "111",
+      "wallhavenCategories": "010",
       "wallhavenPurity": "100",
       "wallhavenRatios": "",
       "wallhavenApiKey": "",
@@ -328,7 +338,7 @@
       "favorites": []
     },
     "appLauncher": {
-      "enableClipboardHistory": false,
+      "enableClipboardHistory": true,
       "autoPasteClipboard": false,
       "enableClipPreview": true,
       "clipboardWrapText": true,
@@ -341,13 +351,13 @@
       "terminalCommand": "alacritty -e",
       "customLaunchPrefixEnabled": false,
       "customLaunchPrefix": "",
-      "viewMode": "list",
+      "viewMode": "grid",
       "showCategories": true,
       "iconMode": "tabler",
       "showIconBackground": false,
-      "enableSettingsSearch": true,
-      "enableWindowsSearch": true,
-      "enableSessionSearch": true,
+      "enableSettingsSearch": false,
+      "enableWindowsSearch": false,
+      "enableSessionSearch": false,
       "ignoreMouseInput": false,
       "screenshotAnnotationTool": "",
       "overviewLayer": false,
@@ -404,7 +414,7 @@
           "id": "brightness-card"
         },
         {
-          "enabled": true,
+          "enabled": false,
           "id": "weather-card"
         },
         {
@@ -441,7 +451,7 @@
       "disableDesktopWidgets": true
     },
     "dock": {
-      "enabled": true,
+      "enabled": false,
       "position": "bottom",
       "displayMode": "auto_hide",
       "dockType": "floating",
@@ -567,7 +577,7 @@
         "critical": true
       },
       "sounds": {
-        "enabled": false,
+        "enabled": true,
         "volume": 0.5,
         "separateSounds": false,
         "criticalSoundFile": "",
@@ -575,7 +585,7 @@
         "lowSoundFile": "",
         "excludedApps": "discord,firefox,chrome,chromium,edge"
       },
-      "enableMediaToast": false,
+      "enableMediaToast": true,
       "enableKeyboardLayoutToast": true,
       "enableBatteryToast": true
     },
@@ -610,7 +620,7 @@
     },
     "colorSchemes": {
       "useWallpaperColors": false,
-      "predefinedScheme": "Noctalia (default)",
+      "predefinedScheme": "Catppuccin",
       "darkMode": true,
       "schedulingMode": "off",
       "manualSunrise": "06:30",
@@ -664,7 +674,25 @@
       "overviewEnabled": true,
       "gridSnap": false,
       "gridSnapScale": false,
-      "monitorWidgets": []
+      "monitorWidgets": [
+        {
+          "name": "DP-3",
+          "widgets": [
+            {
+              "clockColor": "none",
+              "clockStyle": "minimal",
+              "customFont": "",
+              "format": "HH:mm\\nd MMMM yyyy",
+              "id": "Clock",
+              "roundedCorners": true,
+              "showBackground": true,
+              "useCustomFont": false,
+              "x": 50,
+              "y": 50
+            }
+          ]
+        }
+      ]
     }
   },
   "state": {
@@ -673,7 +701,9 @@
     "barVisible": true,
     "openedPanel": "",
     "lockScreenActive": false,
-    "wallpapers": {},
+    "wallpapers": {
+      "DP-3": "/home/im2sleepy/Pictures/Wallpapers/wallhaven_mpxxk8.jpg"
+    },
     "desktopWidgetsEditMode": false,
     "display": {
       "DP-3": {
@@ -693,7 +723,7 @@
       }
     },
     "notificationsState": {
-      "lastSeenTs": 1774464699000
+      "lastSeenTs": 1774547354000
     },
     "changelogState": {
       "lastSeenVersion": "v4.6.7"

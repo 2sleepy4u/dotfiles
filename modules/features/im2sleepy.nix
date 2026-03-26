@@ -15,6 +15,7 @@
 	  git
       jdk21
 	  ripgrep
+	  gparted
 
       (discord.override {
         commandLineArgs = [
@@ -34,7 +35,7 @@
 	  self.homeModules.starship
 	  self.homeModules.zsh
 	  self.homeModules.fuzzel
-	    self.homeModules.mpv      # add this
+	  self.homeModules.mpv      # add this
 
     ];
   };

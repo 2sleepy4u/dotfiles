@@ -177,7 +177,16 @@
             "useDistroLogo": false
           },
           {
+            "defaultSettings": {
+              "enableTodoIntegration": false,
+              "notecardsEnabled": true,
+              "pincardsEnabled": true,
+              "showCloseButton": true
+            },
             "id": "plugin:clipper"
+          },
+          {
+            "id": "plugin:tailscale"
           }
         ]
       },
@@ -670,27 +679,14 @@
       "customCommands": "[]"
     },
     "desktopWidgets": {
-      "enabled": false,
+      "enabled": true,
       "overviewEnabled": true,
       "gridSnap": false,
       "gridSnapScale": false,
       "monitorWidgets": [
         {
           "name": "DP-3",
-          "widgets": [
-            {
-              "clockColor": "none",
-              "clockStyle": "minimal",
-              "customFont": "",
-              "format": "HH:mm\\nd MMMM yyyy",
-              "id": "Clock",
-              "roundedCorners": true,
-              "showBackground": true,
-              "useCustomFont": false,
-              "x": 50,
-              "y": 50
-            }
-          ]
+          "widgets": []
         }
       ]
     }
@@ -723,7 +719,7 @@
       }
     },
     "notificationsState": {
-      "lastSeenTs": 1774547354000
+      "lastSeenTs": 1774559825000
     },
     "changelogState": {
       "lastSeenVersion": "v4.6.7"

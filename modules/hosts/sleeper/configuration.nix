@@ -6,6 +6,7 @@
 			self.nixosModules.niri
 			self.nixosModules.zsh
 			self.nixosModules.gaming
+			self.nixosModules.tailscale
 			inputs.catppuccin.nixosModules.catppuccin
 			];
 

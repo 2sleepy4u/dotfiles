@@ -645,7 +645,7 @@
       "enabled": true,
       "forced": false,
       "autoSchedule": true,
-      "nightTemp": "4755",
+      "nightTemp": "3099",
       "dayTemp": "6500",
       "manualSunrise": "06:30",
       "manualSunset": "18:30"

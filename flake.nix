@@ -11,7 +11,11 @@
     };
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
-    catppuccin.url = "github:catppuccin/nix";
+	catppuccin.url = "github:catppuccin/nix";
+	stylix = {
+		url = "github:nix-community/stylix";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
     nixvim = {
 	    url = "github:nix-community/nixvim";
 	    inputs.nixpkgs.follows = "nixpkgs";

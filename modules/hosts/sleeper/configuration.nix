@@ -51,8 +51,7 @@
 			isNormalUser = true;
 			description = "2sleepy";
 			extraGroups = [ "networkmanager" "wheel" ];
-			packages = with pkgs; [
-			];
+			packages = [ ];
 		};
 
 		catppuccin.enable = true;

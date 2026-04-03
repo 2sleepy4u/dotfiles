@@ -1,0 +1,124 @@
+;; =============================================================================
+;; NeoTokyoIII - KMonad Configuration
+;; Converted from QMK Configurator export (kbnordic/nordic60/rev_a)
+;; Layout: LAYOUT_60_iso adapted for laptop keyboard
+;; =============================================================================
+;;
+;; NOTABLE FEATURES:
+;;   - Home row modifiers (tap=letter, hold=modifier)
+;;   - Layer-tap on Space (tap=space, hold=layer1)
+;;   - Grave Escape (QK_GESC equivalent)
+;;   - Layer 1: F-keys, vim arrows (HJKL), media keys
+;;
+;; INSTALLATION:
+;;   Linux:   sudo kmonad neotokyoiii.kbd
+;;   systemd: place in ~/.config/kmonad/ and enable service
+;;
+;; NOTE: Find your keyboard device with: sudo libinput list-devices
+;;       Replace /dev/input/by-id/YOUR-KEYBOARD below
+;; =============================================================================
+
+(defcfg
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink "KMonad NeoTokyoIII"
+           "/run/current-system/sw/bin/sleep 1 && /run/current-system/sw/bin/setxkbmap -layout us")
+  cmp-seq ralt
+  fallthrough true
+  allow-cmd false
+)
+
+;; =============================================================================
+;; SOURCE LAYOUT - Standard 60% ISO laptop keyboard
+;; =============================================================================
+
+(defsrc
+  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft iso z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc                 ralt rmet     rctl
+)
+
+;; =============================================================================
+;; ALIASES
+;; =============================================================================
+
+(defalias
+
+  ;; --- Home Row Mods (tap=letter, hold=modifier) ---
+  ;; Using tap-hold-next-release for better typing feel
+  ;; Increase timeout if mods trigger accidentally while typing fast
+
+  a_ctl  (tap-hold-next-release 200 a lctl)
+  s_sft  (tap-hold-next-release 200 s lsft)
+  d_alt  (tap-hold-next-release 200 d lalt)
+  f_gui  (tap-hold-next-release 200 f lmet)
+  j_gui  (tap-hold-next-release 200 j rmet)
+  k_alt  (tap-hold-next-release 200 k ralt)
+  l_sft  (tap-hold-next-release 200 l rsft)
+  scl_ct (tap-hold-next-release 200 ; rctl)
+
+  ;; --- Grave Escape (QK_GESC equivalent) ---
+  ;; Tap = Esc, but we map it simply as esc here.
+  ;; For true grave-on-shift behavior, use a custom macro or just use esc.
+  gesc   esc
+
+  ;; --- Layer-tap keys ---
+  spc1   (tap-hold-next-release 200 spc (layer-toggle layer1))
+  nubs1  (tap-hold-next-release 200 S-dot (layer-toggle layer1))
+
+  ;; --- MO(1) momentary layer ---
+  mo1    (layer-toggle layer1)
+
+  ;; --- Media keys ---
+  mply   pp       ;; Play/Pause
+  vold   vold     ;; Volume Down
+  volu   volu     ;; Volume Up
+)
+
+;; =============================================================================
+;; LAYER 0 — Base Layer
+;; =============================================================================
+
+(deflayer base
+  @gesc  1     2     3     4     5     6     7     8     9     0     -     =     bspc
+  tab    q     w     e     r     t     y     u     i     o     p     [     ]
+  esc    @a_ctl @s_sft @d_alt @f_gui g     h     @j_gui @k_alt @l_sft @scl_ct '  \  ret
+  lsft   @nubs1 z     x     c     v     b     n     m     ,     .     /     rsft
+  lctl   @mo1   lalt              @spc1               ralt  rmet        rctl
+)
+
+;; =============================================================================
+;; LAYER 1 — Function / Navigation / Media Layer
+;; (Activated by holding Space, NUBS key, or MO1 key)
+;; =============================================================================
+
+(deflayer layer1
+  grv    f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12   _
+  _      1     2     3     4     5     6     7     8     9     0     _     _
+  _      _     _     _     _     _     left  down  up    rght  @mply '     @vold  @volu
+  _      _     _     _     _     _     _     _     _     _     _     _     _
+  _      _     _                 _                   _     _           _
+)
+
+;; =============================================================================
+;; QUICK REFERENCE
+;; =============================================================================
+;;
+;; BASE LAYER:
+;;   Esc row:  Esc(Grave) 1-0 - = Bspc
+;;   Tab row:  Tab Q W E R T Y U I O P [ ]
+;;   Caps row: Esc(gesc) A(LCtl) S(LSft) D(LAlt) F(LGui) G H J(RGui) K(RAlt) L(RSft) ;(RCtl) ' \ Enter
+;;   Shift row:LSft \(+L1) Z X C V B N M , . / RSft
+;;   Mod row:  LCtl MO1 LAlt   Space(+L1)   RAlt RGui  RCtl
+;;
+;; LAYER 1 (hold Space or MO1 or NUBS):
+;;   Esc row:  ` F1-F12
+;;   Tab row:  (unused) 1-0
+;;   Home row: (unused) Left Down Up Right Play VolDn VolUp
+;;   Others:   (transparent / unused)
+;;
+;; HOME ROW MOD TIMING:
+;;   200ms hold threshold. If mods fire accidentally while typing,
+;;   increase to 250 or 300. If too slow, decrease to 150.
+;; =============================================================================

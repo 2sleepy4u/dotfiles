@@ -39,6 +39,15 @@
             "useCustomFont": false
           },
           {
+            "colorizeSystemIcon": "none",
+            "customIconPath": "",
+            "enableColorization": false,
+            "icon": "rocket",
+            "iconColor": "none",
+            "id": "Launcher",
+            "useDistroLogo": false
+          },
+          {
             "colorizeIcons": false,
             "hideMode": "hidden",
             "id": "ActiveWindow",
@@ -63,12 +72,6 @@
             "textColor": "none",
             "useFixedWidth": false,
             "visualizerType": "linear"
-          },
-          {
-            "colorName": "primary",
-            "hideWhenIdle": false,
-            "id": "AudioVisualizer",
-            "width": 200
           },
           {
             "colorizeIcons": false,
@@ -100,20 +103,11 @@
             "labelMode": "index",
             "occupiedColor": "secondary",
             "pillSize": 0.6,
-            "showApplications": false,
+            "showApplications": true,
             "showApplicationsHover": false,
             "showBadge": true,
             "showLabelsOnlyWhenOccupied": true,
             "unfocusedIconsOpacity": 1
-          },
-          {
-            "colorizeSystemIcon": "none",
-            "customIconPath": "",
-            "enableColorization": false,
-            "icon": "rocket",
-            "iconColor": "none",
-            "id": "Launcher",
-            "useDistroLogo": false
           }
         ],
         "right": [
@@ -140,12 +134,12 @@
           },
           {
             "deviceNativePath": "__default__",
-            "displayMode": "graphic-clean",
+            "displayMode": "graphic",
             "hideIfIdle": false,
             "hideIfNotDetected": true,
             "id": "Battery",
             "showNoctaliaPerformance": false,
-            "showPowerProfiles": false
+            "showPowerProfiles": true
           },
           {
             "displayMode": "onhover",
@@ -168,15 +162,6 @@
             "textColor": "none"
           },
           {
-            "colorizeDistroLogo": false,
-            "colorizeSystemIcon": "none",
-            "customIconPath": "",
-            "enableColorization": false,
-            "icon": "noctalia",
-            "id": "ControlCenter",
-            "useDistroLogo": false
-          },
-          {
             "defaultSettings": {
               "enableTodoIntegration": false,
               "notecardsEnabled": true,
@@ -184,9 +169,6 @@
               "showCloseButton": true
             },
             "id": "plugin:clipper"
-          },
-          {
-            "id": "plugin:tailscale"
           }
         ]
       },
@@ -202,7 +184,7 @@
       "screenOverrides": []
     },
     "general": {
-      "avatarImage": "/home/im2sleepy/.face",
+      "avatarImage": "/home/riccardo/face.png",
       "dimmerOpacity": 0.2,
       "showScreenCorners": false,
       "forceBlackScreenCorners": false,
@@ -311,7 +293,7 @@
     "wallpaper": {
       "enabled": true,
       "overviewEnabled": false,
-      "directory": "/home/im2sleepy/Pictures/Wallpapers",
+      "directory": "/home/riccardo/Pictures/Wallpapers",
       "monitorDirectories": [],
       "enableMultiMonitorDirectories": false,
       "showHiddenFiles": false,
@@ -489,7 +471,7 @@
       "indicatorOpacity": 0.6
     },
     "network": {
-      "wifiEnabled": false,
+      "wifiEnabled": true,
       "airplaneModeEnabled": false,
       "bluetoothRssiPollingEnabled": false,
       "bluetoothRssiPollIntervalMs": 60000,
@@ -638,7 +620,12 @@
       "monitorForColors": ""
     },
     "templates": {
-      "activeTemplates": [],
+      "activeTemplates": [
+        {
+          "enabled": true,
+          "id": "gtk"
+        }
+      ],
       "enableUserTheming": false
     },
     "nightLight": {
@@ -665,7 +652,7 @@
       "autoUpdate": false
     },
     "idle": {
-      "enabled": false,
+      "enabled": true,
       "screenOffTimeout": 600,
       "lockTimeout": 660,
       "suspendTimeout": 1800,
@@ -698,28 +685,47 @@
     "openedPanel": "",
     "lockScreenActive": false,
     "wallpapers": {
-      "DP-3": "/home/im2sleepy/Pictures/Wallpapers/wallhaven_mpxxk8.jpg"
+      "DP-5": "/home/riccardo/pictures/wallpaper.jpg",
+      "DP-7": "/home/riccardo/pictures/wallpaper.jpg",
+      "HDMI-A-1": "/home/riccardo/pictures/wallpaper.jpg",
+      "eDP-1": "/home/riccardo/pictures/wallpaper.jpg",
+      "": "/home/riccardo/pictures/wallpaper.jpg"
     },
     "desktopWidgetsEditMode": false,
     "display": {
-      "DP-3": {
-        "name": "DP-3",
-        "connected": true,
-        "scale": 1.5,
-        "width": 2560,
-        "height": 1440,
+      "eDP-1": {
+        "name": "eDP-1",
+        "connected": false,
+        "scale": 1,
+        "width": 0,
+        "height": 0,
         "x": 0,
         "y": 0,
-        "physical_width": 610,
-        "physical_height": 350,
-        "refresh_rate": 59997,
-        "vrr_supported": true,
+        "physical_width": 340,
+        "physical_height": 220,
+        "refresh_rate": 60001,
+        "vrr_supported": false,
+        "vrr_enabled": false,
+        "transform": "Normal"
+      },
+      "HDMI-A-1": {
+        "name": "HDMI-A-1",
+        "connected": true,
+        "scale": 1,
+        "width": 1920,
+        "height": 1080,
+        "x": 0,
+        "y": 0,
+        "physical_width": 530,
+        "physical_height": 300,
+        "refresh_rate": 60000,
+        "vrr_supported": false,
         "vrr_enabled": false,
         "transform": "Normal"
       }
     },
     "notificationsState": {
-      "lastSeenTs": 1774559825000
+      "lastSeenTs": 1775130827000
     },
     "changelogState": {
       "lastSeenVersion": "v4.6.7"

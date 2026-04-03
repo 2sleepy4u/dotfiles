@@ -16,6 +16,8 @@
 		url = "github:nix-community/stylix";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
+	nix-flatpak.url = "github:gmodena/nix-flatpak";
+
     nixvim = {
 	    url = "github:nix-community/nixvim";
 	    inputs.nixpkgs.follows = "nixpkgs";

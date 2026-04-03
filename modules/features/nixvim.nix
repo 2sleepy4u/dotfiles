@@ -135,31 +135,31 @@
 				mode = "n";
 				action = ":lua require('actions-preview').code_actions()<CR>";
 			}
-			{
-				key = "<C-j>";
-				mode = "n";
-				action = ":DapStepOver<CR>";
-			}
-			{
-				key = "<C-n>";
-				mode = "n";
-				action = ":DapContinue<CR>";
-			}
-			{
-				key = "<C-l>";
-				mode = "n";
-				action = ":DapStepInto<CR>";
-			}
-			{
-				key = "<C-.>";
-				mode = "n";
-				action = ":DapToggleBreakpoint<CR>";
-			}
-			{
-				key = "<C-Tab>";
-				mode = "n";
-				action = ":DapToggleBreakpoint<CR>";
-			}
+			# {
+			# 	key = "<C-j>";
+			# 	mode = "n";
+			# 	action = ":DapStepOver<CR>";
+			# }
+			# {
+			# 	key = "<C-n>";
+			# 	mode = "n";
+			# 	action = ":DapContinue<CR>";
+			# }
+			# {
+			# 	key = "<C-l>";
+			# 	mode = "n";
+			# 	action = ":DapStepInto<CR>";
+			# }
+			# {
+			# 	key = "<C-.>";
+			# 	mode = "n";
+			# 	action = ":DapToggleBreakpoint<CR>";
+			# }
+			# {
+			# 	key = "<C-Tab>";
+			# 	mode = "n";
+			# 	action = ":DapToggleBreakpoint<CR>";
+			# }
 			{
 				key = "<leader>os";
 				mode = "n";
@@ -198,7 +198,7 @@
 				
 			};
 			extraPlugins = with pkgs.vimPlugins; [
-				nvim-dap
+				# nvim-dap
 					actions-preview-nvim
 					hologram-nvim
 					plenary-nvim

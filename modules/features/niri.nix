@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{ self, inputs, config, ... }: {
 	flake.nixosModules.niri = { pkgs, lib, ... }: {
 		programs.niri = {
 			enable = true;
@@ -22,6 +22,26 @@
 					}
 					];
 
+					outputs =  {
+						"eDP-1" = {
+							mode = "1920x1080@120.030";
+							scale = 1.5;
+							transform = "normal";
+							position._attrs = { x = 1280; y = 0; };
+						};
+						"DP-7" = {
+							mode = "1920x1080@120.030";
+							scale = 1.0;
+							transform = "normal";
+							position._attrs = { x = 2240; y = 0; };
+						};
+						"DP-5" = {
+							mode = "1920x1080@120.030";
+							scale = 1.0;
+							transform = "normal";
+							position._attrs = { x = 4160; y = 0; };
+						};
+					}; 
 
 					xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 

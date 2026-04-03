@@ -1,7 +1,8 @@
 { self, inputs, ... }: {
 	flake.nixosModules.zsh = { pkgs, lib, ... }: {
 		programs.zsh.enable = true;
-		users.users.im2sleepy.shell = pkgs.zsh;
+		# users.users.im2sleepy.shell = pkgs.zsh;
+		users.users.riccardo.shell = pkgs.zsh;
 	};
 	flake.homeModules.zsh = { pkgs, lib, ... }: {
 		programs.zsh = {

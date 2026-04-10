@@ -10,8 +10,8 @@
 	  imv
 	  wl-clipboard
 	  thunar
-	  qalculate-gtk
 	  direnv
+	  gnome-calculator
 	  git
       jdk21
 	  ripgrep
@@ -25,7 +25,10 @@
         ];
       })
     ];
-	catppuccin.enable = true;
+	catppuccin.enable = false;
+	# catppuccin.kvantum.enable = false;
+stylix.targets.qt.enable = false;
+
     imports = [
 	  inputs.catppuccin.homeModules.catppuccin
       self.homeModules.brave
@@ -36,6 +39,7 @@
 	  self.homeModules.zsh
 	  self.homeModules.fuzzel
 	  self.homeModules.mpv      # add this
+	  self.homeModules.stylix      # add this
 
     ];
   };

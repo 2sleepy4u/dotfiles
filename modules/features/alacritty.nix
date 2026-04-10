@@ -8,16 +8,16 @@
 		programs.alacritty = {
 			enable = true;
 			settings = {
-				font = {
-					normal.family = "JetBrainsMono Nerd Font";
-					size = 13;
-				};
+				# font = {
+				# 	normal.family = "JetBrainsMono Nerd Font";
+				# 	size = 13;
+				# };
 				window = {
 					padding = { x = 8; y = 8; };
-					opacity = 0.95;
+				# 	opacity = 0.95;
 					decorations = "None";
 				};
-				cursor.style = "Beam";
+				# cursor.style = "Beam";
 			};
 		};
 	};

@@ -7,6 +7,7 @@
 			self.nixosModules.zsh
 			self.nixosModules.gaming
 			self.nixosModules.tailscale
+			# self.nixosModules.stylix
 			inputs.catppuccin.nixosModules.catppuccin
 			];
 
@@ -54,7 +55,7 @@
 			packages = [ ];
 		};
 
-		catppuccin.enable = true;
+		# catppuccin.enable = true;
 		services.displayManager.sddm = {
 			enable = true;
 			theme = "catppuccin-mocha-mauve";

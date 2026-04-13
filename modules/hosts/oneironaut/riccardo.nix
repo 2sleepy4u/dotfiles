@@ -17,9 +17,20 @@
 	  openfortivpn
 	  openvpn
 	  slack
+	  easyeffects
+	  freecad
+	  bambu-studio
+	  nettools
       
     ];
 	catppuccin.enable = true;
+	qt = {
+		enable = true;
+		platformTheme.name = "kvantum";
+		style.name = "kvantum";
+	};
+
+	catppuccin.kvantum.enable = true;
     imports = [
 	  inputs.catppuccin.homeModules.catppuccin
       self.homeModules.brave

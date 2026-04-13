@@ -29,7 +29,7 @@
 
 		services.udev.packages = [ pkgs.probe-rs-tools ];
 		services.udev.extraRules = ''SUBSYSTEM=="hidraw", MODE="0666"'';
-
+		programs.kdeconnect.enable = true;
 
 		time.timeZone = "Europe/Rome";
 		

@@ -215,8 +215,8 @@
 
 # Screenshot
 						"Print"     .screenshot        = {};
-						"Ctrl+Print".screenshot-screen = {};
-						"Alt+Print" .screenshot-window = {};
+						"Mod+P".screenshot-screen = {};
+						"Mod+Alt+P" .screenshot-window = {};
 
 # Misc
 						"Mod+Escape" = { _attrs.allow-inhibiting = false; toggle-keyboard-shortcuts-inhibit = {}; };

@@ -10,15 +10,43 @@
 		packages.niri = inputs.wrapper-modules.wrappers.niri.wrap {
 			inherit pkgs; # THIS PART IS VERY IMPORTAINT, I FORGOT IT IN THE VIDEO!!!
 				settings = {
-					spawn-at-startup = [
-						(lib.getExe self'.packages.noctalia)
-					];
+					# noctalia is started as a systemd user service (see
+					# modules/features/noctalia.nix) so it gets auto-restarted
+					# and cleaned up on crash, instead of spawned here.
 
-					
+					input.touch = {
+						map-to-output = "HDMI-A-1";
+					};
+
 					window-rules = [
 					{
 						geometry-corner-radius = 12;
 						clip-to-geometry = true;
+					}
+					{
+						matches = [{ app-id = "^org.gnome.Calculator$"; }];
+						open-floating = true;
+						default-column-width = { fixed = 360; };
+						default-window-height = { fixed = 616; };
+
+					}
+					{
+						matches = [{ app-id = "^Thunar$"; }];
+						open-floating = true;
+						default-column-width = { fixed = 900; };
+						default-window-height = { fixed = 600; };
+					}
+					{
+						matches = [{ app-id = "^brave-browser$"; title = "^Picture in picture$"; }];
+						open-floating = true;
+						default-column-width = { fixed = 480; };
+						default-window-height = { fixed = 270; };
+					}
+					{
+						matches = [{ app-id = "^org.kde.kdeconnect.*"; }];
+						open-floating = true;
+						default-column-width = { fixed = 800; };
+						default-window-height = { fixed = 600; };
 					}
 					];
 
@@ -27,19 +55,26 @@
 							mode = "1920x1080@120.030";
 							scale = 1.5;
 							transform = "normal";
-							position._attrs = { x = 1280; y = 0; };
+							position =
+								_: {
+									props = { x = 1280; y = 0; };
+								};
 						};
 						"DP-7" = {
 							mode = "1920x1080@120.030";
 							scale = 1.0;
 							transform = "normal";
-							position._attrs = { x = 2240; y = 0; };
+							position = _: {
+								props = { x = 2240; y = 0; };
+							};
 						};
 						"DP-5" = {
 							mode = "1920x1080@120.030";
 							scale = 1.0;
 							transform = "normal";
-							position._attrs = { x = 4160; y = 0; };
+							position = _: {
+								props = { x = 4160; y = 0; };
+							};
 						};
 					}; 
 
@@ -50,42 +85,38 @@
 					layout = {
 						gaps = 10;
 						border.off = {};
-						focus-ring = {
-							width = 1.5;
-							active-color = "#cba6f7";   # catppuccin mocha mauve
-								inactive-color = "#313244"; # catppuccin mocha surface0
-						};
+						# colors come from noctalia.kdl (included below)
+						focus-ring.width = 1.5;
 					};
 
 					 prefer-no-csd = {};
 
 					binds = {
 						"Mod+Return".spawn-sh = lib.getExe pkgs.alacritty;
-						"Mod+S".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher clipboard";
+						"Mod+S".spawn-sh = "${lib.getExe pkgs.noctalia} msg panel-toggle clipboard";
 
 
 						"Mod+Space".spawn-sh = lib.getExe pkgs.fuzzel;
-						"Mod+Q".close-window = null;
-						# "Mod+S".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
+						"Mod+Q".close-window = {};
+						# "Mod+S".spawn-sh = "${lib.getExe pkgs.noctalia} msg panel-toggle launcher";
 
 # Audio
-						"XF86AudioRaiseVolume" = { _attrs.allow-when-locked = true; spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; };
-						"XF86AudioLowerVolume" = { _attrs.allow-when-locked = true; spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; };
-						"XF86AudioMute"        = { _attrs.allow-when-locked = true; spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; };
-						"XF86AudioMicMute"     = { _attrs.allow-when-locked = true; spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; };
-
+						"XF86AudioRaiseVolume" = _: { props.allow-when-locked = true; content.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; };
+						"XF86AudioLowerVolume" = _: { props.allow-when-locked = true; content.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; };
+						"XF86AudioMute"        = _: { props.allow-when-locked = true; content.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; };
+						"XF86AudioMicMute"     = _: { props.allow-when-locked = true; content.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; };
 # Media (playerctl)
-						"XF86AudioPlay" = { _attrs.allow-when-locked = true; spawn-sh = "playerctl play-pause"; };
-						"XF86AudioStop" = { _attrs.allow-when-locked = true; spawn-sh = "playerctl stop"; };
-						"XF86AudioPrev" = { _attrs.allow-when-locked = true; spawn-sh = "playerctl previous"; };
-						"XF86AudioNext" = { _attrs.allow-when-locked = true; spawn-sh = "playerctl next"; };
+						"XF86AudioPlay" = _: { props.allow-when-locked = true; content.spawn-sh = "playerctl play-pause"; };
+						"XF86AudioStop" = _: { props.allow-when-locked = true; content.spawn-sh = "playerctl stop"; };
+						"XF86AudioPrev" = _: { props.allow-when-locked = true; content.spawn-sh = "playerctl previous"; };
+						"XF86AudioNext" = _: { props.allow-when-locked = true; content.spawn-sh = "playerctl next"; };
 
 # Brightness
-						"XF86MonBrightnessUp"   = { _attrs.allow-when-locked = true; spawn = [ (lib.getExe pkgs.brightnessctl) "--class=backlight" "set" "+10%" ]; };
-						"XF86MonBrightnessDown" = { _attrs.allow-when-locked = true; spawn = [ (lib.getExe pkgs.brightnessctl) "--class=backlight" "set" "10%-" ]; };
+						"XF86MonBrightnessUp"   = _: { props.allow-when-locked = true; content.spawn = [ (lib.getExe pkgs.brightnessctl) "--class=backlight" "set" "+10%" ]; };
+						"XF86MonBrightnessDown" = _: { props.allow-when-locked = true; content.spawn = [ (lib.getExe pkgs.brightnessctl) "--class=backlight" "set" "10%-" ]; };
 
 # Overview
-						"Mod+O" = { _attrs.repeat = false; toggle-overview = {}; };
+						"Mod+O" = _: { props.repeat = false; content.toggle-overview = {}; };
 
 # Focus
 						"Mod+Left"  .focus-column-left  = {};
@@ -152,10 +183,10 @@
 						"Mod+Shift+I"         .move-workspace-up   = {};
 
 # Mouse wheel workspace/column
-						"Mod+WheelScrollDown"      = { _attrs.cooldown-ms = 150; focus-workspace-down      = {}; };
-						"Mod+WheelScrollUp"        = { _attrs.cooldown-ms = 150; focus-workspace-up         = {}; };
-						"Mod+Ctrl+WheelScrollDown" = { _attrs.cooldown-ms = 150; move-column-to-workspace-down = {}; };
-						"Mod+Ctrl+WheelScrollUp"   = { _attrs.cooldown-ms = 150; move-column-to-workspace-up   = {}; };
+						"Mod+WheelScrollDown"      = _: { props.cooldown-ms = 150; content.focus-workspace-down      = {}; };
+						"Mod+WheelScrollUp"        = _: { props.cooldown-ms = 150; content.focus-workspace-up         = {}; };
+						"Mod+Ctrl+WheelScrollDown" = _: { props.cooldown-ms = 150; content.move-column-to-workspace-down = {}; };
+						"Mod+Ctrl+WheelScrollUp"   = _: { props.cooldown-ms = 150; content.move-column-to-workspace-up   = {}; };
 						"Mod+WheelScrollRight"      .focus-column-right   = {};
 						"Mod+WheelScrollLeft"       .focus-column-left    = {};
 						"Mod+Ctrl+WheelScrollRight" .move-column-right    = {};
@@ -219,12 +250,18 @@
 						"Mod+Alt+P" .screenshot-window = {};
 
 # Misc
-						"Mod+Escape" = { _attrs.allow-inhibiting = false; toggle-keyboard-shortcuts-inhibit = {}; };
+						"Mod+Escape" = _: { props.allow-inhibiting = false; content.toggle-keyboard-shortcuts-inhibit = {}; };
 						"Mod+Shift+E"   .quit              = {};
 						"Ctrl+Alt+Delete".quit             = {};
 						"Mod+Shift+P"   .power-off-monitors = {};
+						"Mod+Shift+T".spawn-sh = "${lib.getExe pkgs.noctalia} msg theme-mode-toggle";
 					};
 				};
+				# Palette rendered by noctalia (user template `niri` in noctalia.toml);
+				# niri hot-reloads included files. Must come after `settings` to override.
+				extraSettings = [
+					{ include = [ { optional = true; } "~/.config/niri/noctalia.kdl" ]; }
+				];
 		};
 	};
 }

@@ -2,15 +2,17 @@
 	flake.nixosModules.oneironautConfiguration = { pkgs, lib, ... }: {
 		imports =
 			[ 
-			inputs.catppuccin.nixosModules.catppuccin
 			self.nixosModules.oneironautHardware
 			self.nixosModules.niri
 			self.nixosModules.zsh
 			self.nixosModules.kmonad
 			self.nixosModules.postgres
+			self.nixosModules.tailscale
+			self.nixosModules.sddm
 			];
 
 		boot.loader.systemd-boot.enable = true;
+		boot.loader.systemd-boot.configurationLimit = 5;
 		boot.kernelModules = [ "i915"  "snd_hda_intel" "snd_soc_skl"];
 		boot.supportedFilesystems = [ "ntfs" "hfs+" "hfsplus"];
 		boot.kernelParams = [ "i915.force_probe=7d55" ]; 
@@ -28,22 +30,26 @@
 		hardware.ipu6.platform = "ipu6epmtl";
 
 		services.udev.packages = [ pkgs.probe-rs-tools ];
-		services.udev.extraRules = ''SUBSYSTEM=="hidraw", MODE="0666"'';
+		services.udev.extraRules = ''
+		SUBSYSTEM=="hidraw", MODE="0666"
+		SUBSYSTEM=="usb", MODE="0666", TAG+="uaccess"
+		'';
 		programs.kdeconnect.enable = true;
 
 		time.timeZone = "Europe/Rome";
 		
 		services.pulseaudio.enable = false;
 		programs.xwayland.enable = true;
-		catppuccin.enable = true;
-		services.xserver.enable = true;
-		services.displayManager.sddm = {
-			enable = true;
-			theme = "catppuccin-mocha-mauve";
-			package = pkgs.kdePackages.sddm;
-		};
-		catppuccin.sddm.background = ../../../wallpapers/wallpaper.jpg;
 		services.upower.enable = true;
+		services.printing = {
+			enable = true;
+			drivers = with pkgs; [ brgenml1lpr brgenml1cupswrapper brlaser ];
+		};
+		services.avahi = {
+			enable = true;
+			nssmdns4 = true;
+			openFirewall = true;
+		};
 		services.pipewire = {
 			enable = true;
 			alsa.enable = true;
@@ -60,7 +66,7 @@
 			];
 			config.common = {};
 		};
-
+		
 		programs.nix-ld.enable = true;
 		programs.direnv = {
 			enable = true;
@@ -87,10 +93,13 @@
 		networking.networkmanager = {
 			enable = true;  
 			plugins = with pkgs; [
-			  networkmanager-fortisslvpn
 			  networkmanager-openvpn
 			];
 		};
+		networking.firewall.interfaces."enp0s31f6".allowedUDPPortRanges = [
+		{ from = 3956; to = 3956; }
+		{ from = 39999; to = 50000; }
+		];
 		networking.firewall = {
 			enable = true;
 			allowedTCPPorts = [ 
@@ -103,6 +112,9 @@
 				8000
 				4222  # NATS client port
 				8222  # NATS monitoring port (optional)
+
+				5000
+				5001
 			];
 			allowedUDPPorts = [
 				5353
@@ -110,12 +122,18 @@
 					4855
 					5900
 					5050
+
+5000
+				5001
 			];
 		};
 
 
-		
+	# programs.thunar.enable = true;
+	services.gvfs.enable = true;      
+	
 		services.openssh.enable = true;
+		services.tumbler.enable = true;
 
 		services.nats = {
 			enable = true;
@@ -132,6 +150,21 @@
 		};
 
 		virtualisation.docker.enable = true;
+		virtualisation.oci-containers.backend = "docker";
+		virtualisation.oci-containers.containers.bitdefender = {
+			image = "bdfbusiness/bitdefender-security-container:7.0";
+			environmentFiles = [ "/etc/bitdefender/bsc.env" ];  # a string, not ./path
+			volumes = [
+				"/var/lib/bitdefender:/data"
+				"/sys:/mnt/host-sys"
+				"/proc:/mnt/host-proc"
+				"/etc/os-release:/mnt/host-os-release"
+				"/:/mnt/host"
+			];
+			extraOptions = [ "--privileged" "--pid=host" "--net=host"
+				"-u" ":10000" "--stop-timeout=60" ];
+		};
+		systemd.tmpfiles.rules = [ "d /var/lib/bitdefender 0700 root root -" ];
 
 		users.users.riccardo = {
 			isNormalUser = true;

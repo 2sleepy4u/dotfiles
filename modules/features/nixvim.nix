@@ -22,23 +22,11 @@
 				ignorecase = true;
 				conceallevel = 2;
 			};
-			autoCmd = [
-			{
-				command = "set filetype=slint";
-				event = [
-					"BufRead"
-						"BufNewFile"
-				];
-				pattern = [
-					"*.slint"
-				];
-			}
-			];
 			keymaps = [
 			{
 				mode = "n";
 				key = "<leader>ws";
-				action = ''
+				action.__raw = ''
 					function()
 					local char = vim.fn.getcharstr()
 
@@ -62,7 +50,7 @@
 							vim.cmd('normal! ciw' .. open .. close .. '\27P')
 							end
 							'';
-				lua = true;
+				# lua = true;
 				options.desc = "Surround word";
 			}
 			{
@@ -171,6 +159,24 @@
 				action = ":ObsidianTags<CR>";
 			}
 			];
+			autoCmd = [
+			{
+				command = "set filetype=slint";
+				event = [
+					"BufRead"
+						"BufNewFile"
+				];
+				pattern = [
+					"*.slint"
+				];
+			}
+			{
+				event = "BufWritePre";
+				pattern = "*.rs";
+				callback.__raw = "function() vim.lsp.buf.format({ async = false }) end";
+			}
+			];
+			
 			plugins = {
 				typst-vim.enable = true;
 				typst-preview.enable = true;
@@ -178,12 +184,19 @@
 				vim-dadbod-ui.enable = true;
 				vim-dadbod-completion.enable = true;
 				lualine.enable = true;
-				oil.enable = true;
-				telescope.enable = true;
-				telescope.dependencies = {
-				    plenary-nvim.enable = true;
-
+				oil = {
+					enable = true;
+					settings = {
+						view_options = {
+							show_hidden = true;
+						};
+					};
 				};
+				telescope.enable = true;
+				# telescope.dependencies = {
+				#     plenary-nvim.enable = true;
+				#
+				# };
 				telescope.extensions.ui-select.enable = true;
 				treesitter.enable = true;
 				treesitter.settings.auto_install = true;
@@ -201,7 +214,7 @@
 				# nvim-dap
 					actions-preview-nvim
 					hologram-nvim
-					plenary-nvim
+					# plenary-nvim
 					(pkgs.vimUtils.buildVimPlugin {
 					 name = "marp";
 					 src = pkgs.fetchFromGitHub {
@@ -318,6 +331,15 @@
 						installCargo = false;
 						installRustc = false;
 						installRustfmt = false;
+						settings = {
+							check = {
+								command = "clippy";
+								extraArgs = [
+									"--"
+									"--cap-lints=warn"   # downgrades deny-level lints to warn so clippy doesn't abort
+								];	
+							};
+						};
 					};
 				};
 			};

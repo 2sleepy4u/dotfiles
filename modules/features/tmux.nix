@@ -25,7 +25,6 @@
 			baseIndex = 1;
 			plugins = with pkgs.tmuxPlugins; [ 
 				battery
-				catppuccin
 				resurrect
 				yank
 			];

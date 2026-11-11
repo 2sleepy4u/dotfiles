@@ -4,6 +4,7 @@
 
 		home.packages = [
 			pkgs.nerd-fonts.jetbrains-mono
+			pkgs.eb-garamond
 		];
 		programs.alacritty = {
 			enable = true;

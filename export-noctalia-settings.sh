@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-nix run nixpkgs#noctalia-shell ipc call state all > ./modules/features/noctalia.json
+noctalia config export > ./modules/features/noctalia.toml
